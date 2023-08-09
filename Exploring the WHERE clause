@@ -1,0 +1,40 @@
+USE NAMASTE_SQL;
+SELECT * FROM Orders;
+SELECT Order_ID,Order_Date from Orders; 
+
+SELECT TOP 5 Order_ID FROM Orders;
+
+SELECT * FROM Orders ORDER BY Row_ID desc;
+---> To find the distinct values of the Ship_mode column <---
+
+SELECT DISTINCT  Ship_Mode FROM Orders;
+---> To find the distinct values of the Order_date column <---
+
+SELECT DISTINCT Order_date from Orders;
+--->TO FIND DISTINCT COMBINATION OF TWO COLUMNS<---
+
+SELECT DISTINCT Ship_Mode,Customer_Name FROM Orders;---This gives all the unique combinations of Ship_mode and Customer_name 
+
+--->Filtering data by using the where clause <---
+SELECT * 
+FROM Orders
+WHERE Customer_Name='Claire Gute';
+
+--->Where clause with and clause <---
+SELECT *
+FROM Orders
+WHERE Ship_Mode ='First Class' 
+AND Customer_Name ='Claire Gute';
+
+--->ORDER OF EXECUTION<---
+
+SELECT TOP 5 Order_date,Quantity
+FROM Orders
+WHERE Quantity>=5
+ORDER BY Quantity DESC
+
+--->FETCHING DATA BETWEEN TWO DATES<---
+
+SELECT * FROM Orders
+WHERE Order_Date BETWEEN '2020-12-08' AND '2020-12-10'
+ORDER BY Order_Date DESC
