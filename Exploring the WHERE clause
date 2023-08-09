@@ -38,3 +38,56 @@ ORDER BY Quantity DESC
 SELECT * FROM Orders
 WHERE Order_Date BETWEEN '2020-12-08' AND '2020-12-10'
 ORDER BY Order_Date DESC
+
+
+--->ORDER OF EXECUTION<---
+
+SELECT TOP 5 Order_date,Quantity
+FROM Orders
+WHERE Quantity>=5
+ORDER BY Quantity DESC
+
+--->FETCHING DATA BETWEEN TWO DATES<---
+
+SELECT * FROM Orders
+WHERE Order_Date BETWEEN '2020-12-08' AND '2020-12-10'
+ORDER BY Order_Date DESC
+
+--->IN operator<---
+
+SELECT * FROM Orders
+WHERE Ship_Mode IN ('First Class','Standard Class');
+
+SELECT * FROM Orders
+WHERE Quantity IN (3,5,7);--- fetches all the record that has quantity value 3,5,or 7.
+
+--->Adding filters on two columns<---
+
+SELECT * FROM Orders
+WHERE Ship_Mode ='First Class' AND segment ='Consumer';
+
+
+--->Creating new Column<---
+SELECT * , Profit/Sales as ratio
+FROM Orders;
+
+--->LIKE OPERATOR<---
+SELECT * 
+FROM Orders
+WHERE Customer_Name like 'C%';
+
+SELECT Order_ID
+FROM Orders
+WHERE Customer_Name like '%ven%';
+
+--->Case insensitive search<---
+
+SELECT * ,UPPER(customer_name) as upper_cust
+FROM Orders
+WHERE UPPER(customer_name)  like 'A%A';
+
+
+
+
+
+
