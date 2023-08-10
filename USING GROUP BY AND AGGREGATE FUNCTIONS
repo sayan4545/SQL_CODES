@@ -1,0 +1,106 @@
+USE NAMASTE_SQL;
+SELECT * FROM Orders;
+
+--->UPADATE DATA<---
+
+UPDATE Orders
+SET City =null
+WHERE Order_ID IN ('CA-2020-152156' ,'CA-2018-105893');
+
+SELECT * 
+FROM Orders
+WHERE Order_ID IN ('CA-2020-152156' ,'CA-2018-105893');
+
+SELECT *
+FROM Orders
+WHERE city IS NULL;
+
+--->AGGREGATION<---
+SELECT COUNT(*)
+FROM Orders;
+
+--->FINDING THE TOTAL SALES<---
+SELECT SUM(Sales)AS TOTAL_SALES FROM Orders;---FETCHES THE TOTAL SALES ACCUMULATED OVER ALL THE ROWS 
+
+--->FINDING THE MAXIMUM SALES<---
+SELECT MAX(Sales) AS MAXIMUM_SALES FROM Orders;---FETCHES THE MAXIMUM VALUE OF SALES 
+
+--->FINDING THE MINIMUM SALES<---
+SELECT MIN(Sales) AS MINIMUM_SALES FROM Orders;
+
+--->FINDING MINIMUM PROFIT<---
+SELECT MIN(profit) AS MIN_PROFIT FROM Orders;
+
+SELECT COUNT(*),
+MAX(Sales) AS MX_SALES,
+MIN(Sales)AS MN_SALES,
+MAX(profit) AS MX_PR,
+AVG(Sales) AS AV_SALES
+FROM Orders;
+
+
+SELECT COUNT(*) AS CNT,Region,
+MAX(Sales) AS MX_SALES,
+MIN(Sales)AS MN_SALES,
+MAX(profit) AS MX_PR,
+AVG(Sales) AS AV_SALES,
+SUM(Sales) AS TOT_Sales
+FROM Orders
+GROUP BY Region;
+
+SELECT Region,SUM(Sales) as TOTAL_S
+FROM Orders
+WHERE profit>50
+GROUP BY Region;
+
+SELECT Sub_category, SUM(Sales) AS TOT_SALES
+FROM Orders
+GROUP BY Sub_category
+HAVING SUM(Sales) >100000
+ORDER BY TOT_SALES DESC;
+
+--->write a update statement to update city as null for order ids :  CA-2020-161389 , US-2021-156909<---
+UPDATE Orders
+SET City =NULL
+WHERE Order_ID IN ('CA-2020-161389','US-2021-156909');
+
+SELECT * FROM Orders
+WHERE City IS NULL;
+
+---> write a query to find sub-categories where average profit is more than the half of the max profit in that sub-category<---
+select Sub_Category
+from Orders
+group by Sub_Category
+having avg(Profit)>max(Profit)/2;
+
+
+---> write a query to get total profit, first order date and latest order date for each category<---
+SELECT Category,SUM(Profit) as Total_profit,MIN(Order_Date) as first_order_date ,MAX(Order_Date) as latest_order_date
+FROM Orders
+Group by category;
+
+--->write a query to find total number of products in each category<---
+SELECT Category , SUM(Quantity) AS TOTAL_PRODUCts
+FROM Orders
+GROUP BY Category;
+
+--->write a query to find top 5 sub categories in west region by total quantity sold<---
+
+SELECT TOP 5 Sub_Category , SUM(Quantity) as Total_sold
+FROM Orders
+WHERE Region ='West'
+GROUP BY Sub_Category
+ORDER BY Total_sold DESC;
+
+--->write a query to find total sales for each region and ship mode combination for orders in year 2020<---
+
+SELECT Region, SUM(Sales) AS Total_sales ,Ship_Mode
+FROM Orders
+WHERE Order_Date BETWEEN '2020-01-01' AND '2021-12-31'
+GROUP BY Region,Ship_Mode;
+
+
+
+
+
+
